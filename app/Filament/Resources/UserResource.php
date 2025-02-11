@@ -90,13 +90,7 @@ class UserResource extends Resource
             ->dehydrateStateUsing(fn ($state) => Hash::make($state)), // Encripta la contraseña
 
 
-            Select::make('rol')
-                ->label('Rol')
-                ->options([
-                    'ADMIN' => 'Administrador',
-                    'USER' => 'Usuario',
-                ])
-                ->required(),
+
 
             ]);
     }
@@ -125,10 +119,6 @@ class UserResource extends Resource
                 ->sortable()
                 ->searchable(),
 
-            TextColumn::make('rol')
-                ->label('Rol')
-                ->sortable()
-                ->searchable(),
 
             TextColumn::make('created_at')
                 ->label('Creado')
