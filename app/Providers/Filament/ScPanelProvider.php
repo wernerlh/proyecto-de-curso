@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Navigation\NavigationGroup;
 
 class ScPanelProvider extends PanelProvider
 {
@@ -27,8 +28,17 @@ class ScPanelProvider extends PanelProvider
             ->id('sc')
             ->path('sc')
             ->login()
+            ->sidebarFullyCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Amber,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Gestión de Personal'),
+ 
+                NavigationGroup::make()
+                    ->label('Seguridad'),
+   
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -53,6 +63,9 @@ class ScPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            //Plugins
+            ->plugin(\FilipFonal\FilamentLogManager\FilamentLogManager::make())
+            ->plugin(\TomatoPHP\FilamentLogger\FilamentLoggerPlugin::make());
     }
 }
